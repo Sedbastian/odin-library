@@ -1,4 +1,6 @@
-class Book {
+let biblioteca = [];
+
+class Libro {
     constructor(titulo, autor, paginas, leido) {
         this.titulo = titulo
         this.autor = autor
@@ -18,22 +20,27 @@ class Book {
     };
 };
 
-const laRiojaIndigena = new Book ("La Rioja Indigena", "Victor Hugo Robledo", 600, true);
+function agregarLibro (nuevoLibro) {
+    biblioteca.push (nuevoLibro);
+};
 
-const tresMosqueteros = new Book ("Los Tres Mosqueteros", "Alejandro Dumas", 500, true);
+const laRiojaIndigena = new Libro ("La Rioja Indigena", "Victor Hugo Robledo", 600, true);
 
-const rayuela = new Book ("Rayuela", "Julio Cortazar", 450, true);
+const tresMosqueteros = new Libro ("Los Tres Mosqueteros", "Alejandro Dumas", 500, true);
 
-const hijosDelCosmos = new Book ("Hijos Del Cosmos", "Dionisio Aizcorbe", 300, false);
+const rayuela = new Libro ("Rayuela", "Julio Cortazar", 450, true);
 
-console.log(laRiojaIndigena);
-console.log(laRiojaIndigena.info());
+const hijosDelCosmos = new Libro ("Hijos Del Cosmos", "Dionisio Aizcorbe", 300, false);
 
-console.log(tresMosqueteros);
-console.log(tresMosqueteros.info());
+agregarLibro (laRiojaIndigena);
+agregarLibro (tresMosqueteros);
+agregarLibro (rayuela);
+agregarLibro (hijosDelCosmos);
 
-console.log(rayuela);
-console.log(rayuela.info());
+let cuerpi = document.querySelector("body");
 
-console.log(hijosDelCosmos);
-console.log(hijosDelCosmos.info());
+for (let libro in biblioteca) {
+    const fichaLibro = document.createElement("div");
+    fichaLibro.textContent = biblioteca[libro].info();
+    cuerpi.appendChild (fichaLibro);
+};
