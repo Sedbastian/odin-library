@@ -1,0 +1,36 @@
+body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+
+    background-color: rgb(121, 37, 22);
+    color: rgb(178, 202, 137);
+    font-size: 2rem;
+}
+
+body div {
+    border-style: solid;
+    border-color: rgb(45, 0, 45);
+    border-width: 1rem;
+    border-radius: 1rem;
+}
+
+.divFormulario {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    
+
+    padding: 2rem;
+    background-color: yellowgreen;
+    border-style: solid;
+    border-color: black;
+    border-width: 1rem;
+
+    color: darkblue;
+}
