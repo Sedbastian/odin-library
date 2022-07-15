@@ -46,12 +46,13 @@ for (let libro in biblioteca) {
     cuerpi.appendChild(fichaLibro);
 };
 
-
-
 function formularioAgregarLibro () {
     function agregarNuevoLibro () {
         biblioteca.push(new Libro (`${inputTitulo.value}`, `${inputAutore.value}`, `${inputPaginas.value}`, inputLeido.checked));
-        
+        const nuevaFicha = document.createElement("div");
+        nuevaFicha.textContent = biblioteca[biblioteca.length-1].info();
+        cuerpi.appendChild(nuevaFicha);
+        cuerpi.removeChild(divFormulario);
 };
     
     const divFormulario = document.createElement("div");
