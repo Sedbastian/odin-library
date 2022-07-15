@@ -40,11 +40,29 @@ agregarLibro (hijosDelCosmos);
 
 let cuerpi = document.querySelector("body");
 
-for (let libro in biblioteca) {
-    const fichaLibro = document.createElement("div");
-    fichaLibro.textContent = biblioteca[libro].info();
-    cuerpi.appendChild(fichaLibro);
+function mostrarBibliotecaFija () {
+    for (let libro in biblioteca) {
+        function removerLibroFijo () {
+            biblioteca.splice(botonRemover.getAttribute("data-indice"), 1);
+            const fichaAremover = document.getElementById(`${botonRemover.getAttribute("data-indice")}`);
+            fichaAremover.remove();
+        };
+        
+        const fichaLibro = document.createElement("div");
+        fichaLibro.setAttribute("id", `${libro}`);
+        fichaLibro.textContent = biblioteca[libro].info();
+        
+        const botonRemover = document.createElement("button");
+        botonRemover.setAttribute("class", "botonRemover");
+        botonRemover.setAttribute("data-indice", `${libro}`);
+        botonRemover.addEventListener("click", removerLibroFijo);
+        fichaLibro.appendChild(botonRemover);
+
+        cuerpi.appendChild(fichaLibro);
+    };
 };
+
+mostrarBibliotecaFija();
 
 function formularioAgregarLibro () {
     function agregarNuevoLibro () {

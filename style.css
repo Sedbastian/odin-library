@@ -8,6 +8,17 @@ body {
     font-size: 2rem;
 }
 
+body > button {
+    justify-self: center;
+    align-self: center;
+    width: 50%;
+    height: min-content;
+    border-style: outset;
+    border-width: .5rem;
+    background-color: lightslategray;
+    font-size: 2rem;
+}
+
 body div {
     border-style: solid;
     border-color: rgb(45, 0, 45);
