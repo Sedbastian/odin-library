@@ -44,12 +44,16 @@ function mostrarBibliotecaFija () {
     for (let libro in biblioteca) {
         function removerLibroFijo () {
             biblioteca.splice(botonRemover.getAttribute("data-indice"), 1);
-            const fichaAremover = document.getElementById(`${botonRemover.getAttribute("data-indice")}`);
-            fichaAremover.remove();
+            let fichas = document.querySelectorAll(".ficha");
+            fichas.forEach(ficha => {
+                ficha.remove();
+            });
+            mostrarBibliotecaFija();
         };
         
+        
         const fichaLibro = document.createElement("div");
-        fichaLibro.setAttribute("id", `${libro}`);
+        fichaLibro.setAttribute("class", "ficha");
         fichaLibro.textContent = biblioteca[libro].info();
         
         const botonRemover = document.createElement("button");
@@ -66,9 +70,26 @@ mostrarBibliotecaFija();
 
 function formularioAgregarLibro () {
     function agregarNuevoLibro () {
+        function removerLibroAgregado () {
+            biblioteca.splice(botonRemover.getAttribute("data-indice"), 1);
+            let fichas = document.querySelectorAll(".ficha");
+            fichas.forEach(ficha => {
+                ficha.remove();
+            });
+            mostrarBibliotecaFija();
+        };
+
         biblioteca.push(new Libro (`${inputTitulo.value}`, `${inputAutore.value}`, `${inputPaginas.value}`, inputLeido.checked));
         const nuevaFicha = document.createElement("div");
+        nuevaFicha.setAttribute("class", "ficha");
         nuevaFicha.textContent = biblioteca[biblioteca.length-1].info();
+
+        const botonRemover = document.createElement("button");
+        botonRemover.setAttribute("class", "botonRemover");
+        botonRemover.setAttribute("data-indice", `${biblioteca.length-1}`);
+        botonRemover.addEventListener("click", removerLibroAgregado);
+        nuevaFicha.appendChild(botonRemover);
+
         cuerpi.appendChild(nuevaFicha);
         cuerpi.removeChild(divFormulario);
 };
@@ -123,7 +144,6 @@ function formularioAgregarLibro () {
     divFormulario.appendChild(botonAgregar);
 
     cuerpi.appendChild(divFormulario);
-    
 };
 
 const botonAgregarLibro = document.querySelector(".agregarLibro");
