@@ -50,7 +50,7 @@ for (let libro in biblioteca) {
 
 function formularioAgregarLibro () {
     function agregarNuevoLibro () {
-        biblioteca.push(new Libro (`${inputTitulo.value}`, `${inputAutore.value}`, 1, false));
+        biblioteca.push(new Libro (`${inputTitulo.value}`, `${inputAutore.value}`, `${inputPaginas.value}`, inputLeido.checked));
         
 };
     
