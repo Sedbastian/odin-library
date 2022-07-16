@@ -18,10 +18,9 @@ class Libro {
         };
         return `"${this.titulo}" por ${this.autore}, ${this.paginas} páginas, ${estadoLeido}.`;
     };
-};
-
-function agregarLibro (nuevoLibro) {
-    biblioteca.push (nuevoLibro);
+    cambiarEstadoLeido() {
+        this.leido = !(this.leido);
+    };
 };
 
 const laRiojaIndigena = new Libro ("La Rioja Indigena", "Victor Hugo Robledo", 600, true);
@@ -32,15 +31,19 @@ const rayuela = new Libro ("Rayuela", "Julio Cortazar", 450, true);
 
 const hijosDelCosmos = new Libro ("Hijos Del Cosmos", "Dionisio Aizcorbe", 300, false);
 
-agregarLibro (laRiojaIndigena);
-agregarLibro (tresMosqueteros);
-agregarLibro (rayuela);
-agregarLibro (hijosDelCosmos);
-
+biblioteca.push(laRiojaIndigena);
+biblioteca.push(tresMosqueteros);
+biblioteca.push(rayuela);
+biblioteca.push(hijosDelCosmos);
 
 let cuerpi = document.querySelector("body");
 
-function mostrarBibliotecaFija () {
+function mostrarBiblioteca () {
+    let fichas = document.querySelectorAll(".ficha");
+    fichas.forEach(ficha => {
+        ficha.remove();
+    });
+
     for (let libro in biblioteca) {
         function removerLibroFijo () {
             biblioteca.splice(botonRemover.getAttribute("data-indice"), 1);
@@ -48,10 +51,14 @@ function mostrarBibliotecaFija () {
             fichas.forEach(ficha => {
                 ficha.remove();
             });
-            mostrarBibliotecaFija();
+            mostrarBiblioteca();
         };
         
-        
+        function cambiarEstadoLeido () {
+            (biblioteca[botonCambiarLeido.getAttribute("data-indice")]).cambiarEstadoLeido();
+            mostrarBiblioteca();
+        };
+
         const fichaLibro = document.createElement("div");
         fichaLibro.setAttribute("class", "ficha");
         fichaLibro.textContent = biblioteca[libro].info();
@@ -59,39 +66,48 @@ function mostrarBibliotecaFija () {
         const botonRemover = document.createElement("button");
         botonRemover.setAttribute("class", "botonRemover");
         botonRemover.setAttribute("data-indice", `${libro}`);
+        botonRemover.textContent = "Remover Libro";
         botonRemover.addEventListener("click", removerLibroFijo);
         fichaLibro.appendChild(botonRemover);
+
+        const botonCambiarLeido = document.createElement("button");
+        botonCambiarLeido.setAttribute("class", "botonCambiarLeido");
+        botonCambiarLeido.setAttribute("data-indice", `${libro}`);
+        botonCambiarLeido.textContent = "Cambiar Estado Leido";
+        botonCambiarLeido.addEventListener("click", cambiarEstadoLeido);
+        fichaLibro.appendChild(botonCambiarLeido);
 
         cuerpi.appendChild(fichaLibro);
     };
 };
 
-mostrarBibliotecaFija();
+mostrarBiblioteca();
 
 function formularioAgregarLibro () {
     function agregarNuevoLibro () {
-        function removerLibroAgregado () {
-            biblioteca.splice(botonRemover.getAttribute("data-indice"), 1);
-            let fichas = document.querySelectorAll(".ficha");
-            fichas.forEach(ficha => {
-                ficha.remove();
-            });
-            mostrarBibliotecaFija();
-        };
+        // function removerLibroAgregado () {
+        //     biblioteca.splice(botonRemover.getAttribute("data-indice"), 1);
+        //     let fichas = document.querySelectorAll(".ficha");
+        //     fichas.forEach(ficha => {
+        //         ficha.remove();
+        //     });
+        //     mostrarBibliotecaFija();
+        // };
 
         biblioteca.push(new Libro (`${inputTitulo.value}`, `${inputAutore.value}`, `${inputPaginas.value}`, inputLeido.checked));
-        const nuevaFicha = document.createElement("div");
-        nuevaFicha.setAttribute("class", "ficha");
-        nuevaFicha.textContent = biblioteca[biblioteca.length-1].info();
+        // const nuevaFicha = document.createElement("div");
+        // nuevaFicha.setAttribute("class", "ficha");
+        // nuevaFicha.textContent = biblioteca[biblioteca.length-1].info();
 
-        const botonRemover = document.createElement("button");
-        botonRemover.setAttribute("class", "botonRemover");
-        botonRemover.setAttribute("data-indice", `${biblioteca.length-1}`);
-        botonRemover.addEventListener("click", removerLibroAgregado);
-        nuevaFicha.appendChild(botonRemover);
+        // const botonRemover = document.createElement("button");
+        // botonRemover.setAttribute("class", "botonRemover");
+        // botonRemover.setAttribute("data-indice", `${biblioteca.length-1}`);
+        // botonRemover.addEventListener("click", removerLibroAgregado);
+        // nuevaFicha.appendChild(botonRemover);
 
-        cuerpi.appendChild(nuevaFicha);
+        // cuerpi.appendChild(nuevaFicha);
         cuerpi.removeChild(divFormulario);
+        mostrarBiblioteca();
 };
     
     const divFormulario = document.createElement("div");

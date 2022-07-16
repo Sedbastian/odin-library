@@ -26,6 +26,10 @@ body div {
     border-radius: 1rem;
 }
 
+.botonRemover, .botonCambiarLeido {
+    padding: 1rem;
+}
+
 .divFormulario {
     position: absolute;
     left: 50%;
