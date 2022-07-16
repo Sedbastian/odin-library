@@ -61,7 +61,10 @@ function mostrarBiblioteca () {
 
         const fichaLibro = document.createElement("div");
         fichaLibro.setAttribute("class", "ficha");
-        fichaLibro.textContent = biblioteca[libro].info();
+        const divInfo = document.createElement("div");
+        divInfo.setAttribute("class", "divInfo");
+        divInfo.textContent = biblioteca[libro].info();
+        fichaLibro.appendChild(divInfo);
         
         const botonRemover = document.createElement("button");
         botonRemover.setAttribute("class", "botonRemover");
@@ -85,31 +88,15 @@ mostrarBiblioteca();
 
 function formularioAgregarLibro () {
     function agregarNuevoLibro () {
-        // function removerLibroAgregado () {
-        //     biblioteca.splice(botonRemover.getAttribute("data-indice"), 1);
-        //     let fichas = document.querySelectorAll(".ficha");
-        //     fichas.forEach(ficha => {
-        //         ficha.remove();
-        //     });
-        //     mostrarBibliotecaFija();
-        // };
-
         biblioteca.push(new Libro (`${inputTitulo.value}`, `${inputAutore.value}`, `${inputPaginas.value}`, inputLeido.checked));
-        // const nuevaFicha = document.createElement("div");
-        // nuevaFicha.setAttribute("class", "ficha");
-        // nuevaFicha.textContent = biblioteca[biblioteca.length-1].info();
-
-        // const botonRemover = document.createElement("button");
-        // botonRemover.setAttribute("class", "botonRemover");
-        // botonRemover.setAttribute("data-indice", `${biblioteca.length-1}`);
-        // botonRemover.addEventListener("click", removerLibroAgregado);
-        // nuevaFicha.appendChild(botonRemover);
-
-        // cuerpi.appendChild(nuevaFicha);
         cuerpi.removeChild(divFormulario);
         mostrarBiblioteca();
-};
+    };
     
+    function cancelarFormulario () {
+        cuerpi.removeChild(divFormulario);
+    };  
+
     const divFormulario = document.createElement("div");
     divFormulario.classList.add("divFormulario");
 
@@ -156,8 +143,15 @@ function formularioAgregarLibro () {
 
     const botonAgregar = document.createElement("button");
     botonAgregar.addEventListener("click", agregarNuevoLibro);
+    botonAgregar.setAttribute("class", "botonFormulario");
     botonAgregar.textContent = "Agregar Libro";
     divFormulario.appendChild(botonAgregar);
+
+    const botonCancelar = document.createElement("button");
+    botonCancelar.addEventListener("click", cancelarFormulario);
+    botonCancelar.setAttribute("class", "botonFormulario");
+    botonCancelar.textContent = "Cancelar";
+    divFormulario.appendChild(botonCancelar);
 
     cuerpi.appendChild(divFormulario);
 };
