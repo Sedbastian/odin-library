@@ -74,7 +74,7 @@ body div .botonRemover, .botonCambiarLeido {
     font-size: 1rem;
 }
 
-.divFormulario {
+.formulario {
     position: fixed;
     left: 50%;
     top: 50%;
@@ -92,6 +92,20 @@ body div .botonRemover, .botonCambiarLeido {
     border-width: 1rem;
 
     color: darkblue;
+}
+
+.formulario :required {
+	border-style: double;
+	border-width: 1rem;
+	color: blue;
+}
+
+.formulario :valid {
+	background-color: green;
+}
+
+.formulario :invalid {
+	background-color: red;
 }
 
 .botonFormulario {
